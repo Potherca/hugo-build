@@ -1,0 +1,20 @@
+---
+name: Build Hugo site
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://hugomods/hugo:std-go-git
+        with:
+          args: >
+            sh -c "
+                [ -f go.mod ] || hugo mod init 'github.com/${{ github.repository }}' \
+                && hugo mod get -u \
+                && hugo \
+                  --gc \
+                  --minify
+            "
