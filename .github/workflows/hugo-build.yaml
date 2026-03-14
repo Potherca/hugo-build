@@ -3,9 +3,17 @@ name: Build Hugo site
 
 on:
   workflow_call:
+    inputs:
+      # inputs.path: ./
+      path:
+        default: ./
+        description: '(String) Path to build the Hugo site from'
+        required: false
+        type: string
 
 jobs:
   build:
+    name: Build Hugo site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,8 +23,9 @@ jobs:
         with:
           args: >
             sh -c "
-                [ -f go.mod ] || hugo mod init 'github.com/${{ github.repository }}' \
-                && hugo mod get -u \
+                cd ${{ inputs.path }};
+                [ -f go.mod ] || hugo mod init 'github.com/${{ github.repository }}';
+                hugo mod get -u \
                 && hugo \
                   --gc \
                   --minify
@@ -26,4 +35,4 @@ jobs:
         with:
           if-no-files-found: error
           name: github-pages
-          path: public
+          path: ${{ inputs.path }}/public
