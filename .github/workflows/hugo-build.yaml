@@ -4,6 +4,14 @@ name: Build Hugo site
 on:
   workflow_call:
     inputs:
+      # inputs.exclude: '.git\n.github'
+      exclude:
+        default: |
+          .git
+          .github
+        description: '(String) Newline-separated list of file patterns to exclude from the GitHub Pages artifact'
+        required: false
+        type: string
       # inputs.path: ./
       path:
         default: ./
@@ -30,9 +38,24 @@ jobs:
                   --gc \
                   --minify
             "
+
+      - name: Create GitHub Pages-compatible artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar \
+          --create \
+          --dereference \
+          --directory "${{ inputs.path }}/public" \
+          --exclude-from=<(echo -e '${{ inputs.exclude }}') \
+          --file "${{ runner.temp }}/artifact.tar" \
+          --hard-dereference \
+          --verbose \
+          .
+
       - name: Upload GitHub Pages artifacts
         uses: actions/upload-artifact@v7
         with:
           if-no-files-found: error
           name: github-pages
-          path: ${{ inputs.path }}/public
+          path: ${{ runner.temp }}/artifact.tar
