@@ -4,6 +4,20 @@ name: Build Hugo site
 on:
   workflow_call:
     inputs:
+      # inputs.config-file: ''
+      config-file:
+        description: '(String) Path to the Hugo configuration file'
+        required: false
+        type: string
+      # inputs.config-ignore-files: 'go.*, hugo.yml, public/*'
+      config-ignore-files:
+        default: >
+          "go.*",
+          "hugo.yml",
+          "public/*"
+        description: '(String) Comma-separated list of file patterns to ignore in the Hugo build'
+        required: false
+        type: string
       # inputs.docker-image: hugomods/hugo:std-go-git
       # For specific features see https://docker.hugomods.com/choose/
       docker-image:
@@ -33,6 +47,29 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+      - if: ${{ inputs.config-file == '' }}
+        name: Create Hugo config file
+        run: |
+          cat <<JSON > hugo.json
+          {
+              "ignorefiles": [ ${{ inputs.config-ignore-files }} ]
+          }
+          JSON
+      - if: ${{ inputs.config-file == '' }}
+        name: Lint Hugo config JSON file
+        uses: docker://pipelinecomponents/jsonlint:latest
+        with:
+          args: jsonlint hugo.json
+      - id: config-file-path
+        name: Set config file path
+        run: |
+          if [[ -n "${{ inputs.config-file }}" && -f "${{ inputs.config-file }}" ]]; then
+            echo "Using provided config file: ${{ inputs.config-file }}"
+            echo "path=${{ inputs.config-file }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "No config file provided, using generated hugo.json"
+            echo "path=hugo.json" >> "$GITHUB_OUTPUT"
+          fi
       - name: Build with Hugo
         shell: bash
         run: |
@@ -46,6 +83,7 @@ jobs:
               [ -f go.mod ] || hugo mod init 'github.com/${{ github.repository }}';
               hugo mod get -u \
               && hugo \
+                --config '${{ steps.config-file-path.outputs.path }}' \
                 --gc \
                 --minify
             "

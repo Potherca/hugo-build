@@ -111,6 +111,75 @@ jobs:
 
 <!-- @TODO: Link to docs with more fine-grained details -->
 
+#### ignore files in the build
+
+> [!WARNING]
+> The `config-ignore-files` input parameter has no effect if the `config-file` input parameter is used.
+
+The `exclude` flag excludes files from the artifact, _after_ the build has completed.
+
+To exclude files from the Hugo build, the `config-ignore-files` input parameter can be used.
+
+Define a comma-separated list of file patterns to ignore in the Hugo build:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      # Exclude all files in the `content` folder from the Hugo build
+      config-ignore-files: "folder-to-ignore/*", "file-to-ignore.md"
+```
+
+Note that each entry MUST be wrapped in quotes, and the last entry MUST NOT have a trailing comma.
+
+When there are many entries that need to be ignored, "folded scalar" YAML operator `>` can be used to make it more readable:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      # Exclude all files in the `content` folder from the Hugo build
+      config-ignore-files: >
+        "go.*",
+        "file-to-ignore.md",
+        "folder-to-ignore/*",
+        "hugo.yml",
+        "public/*"
+```
+
+#### Specify a Hugo config file
+
+> [!WARNING]
+> All input parameter that start with `config-` have no effect if the `config-file` input parameter is used.
+
+To have more control over the Hugo build, a Hugo configuration file can be created.
+For the workflow to use such a configuration file, it must be passed to the workflow using the `config-file` input parameter:
+
+```yaml
+jobs:
+    build:
+        uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+        with:
+            config-file: path/to/config.yaml
+```
+
+If this input parameter is used, some other input params will not work, as they are set in an ad-hoc config file used by the workflow.
+
+To make sure everything works as expected, make sure to add any workflow configuration to the Hugo config file:
+
+```yaml
+# config.yaml
+# ...
+
+# Ignore all files in the `content` folder
+ignoreFiles:
+  - go.*
+  - hugo.yml
+  - public/*
+```
+
 ## Contributing
 
 Questions or feedback can be given by [opening an issue](https://github.com/Potherca/hugo-build/issues) on GitHub.
