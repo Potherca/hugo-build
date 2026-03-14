@@ -22,6 +22,8 @@ jobs:
                   --minify
             "
       - name: Upload GitHub Pages artifacts
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
+          if-no-files-found: error
+          name: github-pages
           path: public
