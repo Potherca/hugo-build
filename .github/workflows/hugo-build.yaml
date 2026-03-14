@@ -4,6 +4,13 @@ name: Build Hugo site
 on:
   workflow_call:
     inputs:
+      # inputs.docker-image: hugomods/hugo:std-go-git
+      # For specific features see https://docker.hugomods.com/choose/
+      docker-image:
+        default: hugomods/hugo:std-go-git
+        description: '(String) Docker image to use for building the Hugo site'
+        required: false
+        type: string
       # inputs.exclude: '.git\n.github'
       exclude:
         default: |
@@ -27,7 +34,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Build with Hugo
-        uses: docker://hugomods/hugo:std-go-git
+        uses: docker://${{ inputs.docker-image }}
         with:
           args: >
             sh -c "
