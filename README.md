@@ -304,6 +304,21 @@ jobs:
 
 For a full list of all available Hugo configuration options, see [the complete list of Hugo configuration settings.](https://gohugo.io/configuration/all/)
 
+#### Website language
+
+To set the website's language, the `languageCode` root key can be set using the `config-root-keys` input parameter:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      config-root-keys: |
+          "languageCode": "en-us"
+```
+
+For more information about Hugo configuration, see the "Various Hugo configurations" section above.
+
 #### Website title
 
 Usually, at the very least, you'll want to set a title for the website. This can be done using the `config-root-keys` input parameter, with the `title` key:
