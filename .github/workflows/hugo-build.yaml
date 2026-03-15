@@ -9,6 +9,13 @@ on:
         description: '(String) Path to the Hugo configuration file'
         required: false
         type: string
+      # inputs.config-params: {}
+      config-params:
+        default: |
+          {}
+        description: '(String) Hugo params configuration JSON'
+        required: false
+        type: string
       # inputs.config-ignore-files: 'go.*, hugo.yml, public/*'
       config-ignore-files:
         default: >
@@ -63,7 +70,8 @@ jobs:
                   "imports": [
                       ${{ inputs.config-module-imports }}
                   ]
-              }
+              },
+              "params": ${{ inputs.config-params }}
           }
           JSON
       - if: ${{ inputs.config-file == '' }}

@@ -172,9 +172,40 @@ jobs:
         { "path": "github.com/McShelby/hugo-theme-relearn" }
 ```
 
+> [!TIP]
+> Most themes provide parameters to configure and customize the theme. These can be passed to the workflow using the `config-params` input parameter. See the [Setting a Theme's parameters](#setting-a-themes-parameters) section below.
+
 More themes can be found on the [Hugo Themes website](https://themes.gohugo.io/).
 
 For details on how to import other types of modules, or how to specify other options, see [the Imports section of the Hugo Modules documentation](https://gohugo.io/configuration/module/#imports).
+
+#### Setting a Theme's parameters
+
+> [!IMPORTANT]
+> The `config-params` input parameter has no effect if the `config-file` input parameter is used.
+
+Most themes have parameters that can be set to configure the theme.  Such parameters are defined by the theme, and can be found in the theme's documentation.
+
+To configure and customize a theme, set the `config-params` input parameter.
+
+For instance, the Relearn theme [configuration](https://mcshelby.github.io/hugo-theme-relearn/configuration/reference/) has parameters to configure the theme's menu and styling (i.e. theme variants). An example of setting these parameters would be:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      config-module-imports: |
+        { "path": "github.com/McShelby/hugo-theme-relearn" }
+      config-params: |
+        {
+          "collapsibleMenu": true,
+          "themeVariant": ["auto", "zen-dark", "zen-light"]
+        }
+```
+
+For more information about non-theme site parameters, visit [the Hugo "Configure params" documentation](https://gohugo.io/configuration/params/).
+
 
 #### Specify a Hugo config file
 
