@@ -18,6 +18,12 @@ on:
         description: '(String) Comma-separated list of file patterns to ignore in the Hugo build'
         required: false
         type: string
+      # inputs.config-module-imports: ''
+      # For a full list of options see: https://gohugo.io/configuration/module/#imports
+      config-module-imports:
+        description: '(String) Hugo module imports JSON. Objects with a "path" property.'
+        required: false
+        type: string
       # inputs.docker-image: hugomods/hugo:std-go-git
       # For specific features see https://docker.hugomods.com/choose/
       docker-image:
@@ -52,7 +58,12 @@ jobs:
         run: |
           cat <<JSON > hugo.json
           {
-              "ignorefiles": [ ${{ inputs.config-ignore-files }} ]
+              "ignorefiles": [ ${{ inputs.config-ignore-files }} ],
+              "module": {
+                  "imports": [
+                      ${{ inputs.config-module-imports }}
+                  ]
+              }
           }
           JSON
       - if: ${{ inputs.config-file == '' }}
