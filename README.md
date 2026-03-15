@@ -311,7 +311,7 @@ Usually, at the very least, you'll want to set a title for the website. This can
 ```yaml
 jobs:
   build:
-    uses:  potherca/hugo-reusable-workflow/.github/workflows/hugo-reusable-workflow.yaml@main
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
     with:
       config-root-keys: |
           "title": "My Website"
