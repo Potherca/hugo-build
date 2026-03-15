@@ -25,6 +25,14 @@ on:
         description: '(String) Comma-separated list of file patterns to ignore in the Hugo build'
         required: false
         type: string
+      # inputs.config-root-keys: ''
+      config-root-keys:
+        default: |
+          "disableHugoGeneratorInject": true,
+          "languageCode": "en-us"
+        description: '(String) Configuration JSON for in the root of the Hugo config'
+        required: false
+        type: string
       # inputs.config-module-imports: ''
       # For a full list of options see: https://gohugo.io/configuration/module/#imports
       config-module-imports:
@@ -65,6 +73,7 @@ jobs:
         run: |
           cat <<JSON > hugo.json
           {
+              ${{ inputs.config-root-keys }},
               "ignorefiles": [ ${{ inputs.config-ignore-files }} ],
               "module": {
                   "imports": [

@@ -118,7 +118,7 @@ jobs:
 #### Ignore files in the build
 
 > [!IMPORTANT]
-> The `config-ignore-files` input parameter has no effect if the `config-file` input parameter is used.
+> The `config-ignore-files` input parameter has no effect if the `config-file` input parameter is used, or if the `ignoreFiles` root key is set through the `config-root-keys` input parameter.
 
 The `exclude` input parameter excludes files from the artifact created _after_ the build has completed.
 
@@ -136,7 +136,7 @@ jobs:
 ```
 
 > [!WARNING]
-> Note that each entry MUST be wrapped in quotes, and the last entry MUST NOT have a trailing comma.
+> Note that each entry MUST be wrapped in quotes and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
 
 When there are many entries that need to be ignored, "folded scalar" YAML operator `>` can be used to make it more readable:
 
@@ -145,7 +145,6 @@ jobs:
   build:
     uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
     with:
-      # Exclude all files in the `content` folder from the Hugo build
       config-ignore-files: >
         "go.*",
         "file-to-ignore.md",
@@ -157,7 +156,7 @@ jobs:
 #### Setting a Theme
 
 > [!IMPORTANT]
-> The `config-module-imports` input parameter has no effect if the `config-file` input parameter is used.
+> The `config-module-imports` input parameter has no effect if the `config-file` input parameter is used, or if the `module` root key is set through the `config-root-keys` input parameter.
 
 For a Hugo site, a [theme](https://themes.gohugo.io/) is "just" a [module](https://gohugo.io/hugo-modules/use-modules/) that needs to imported from a specific path.
 
@@ -172,8 +171,11 @@ jobs:
         { "path": "github.com/McShelby/hugo-theme-relearn" }
 ```
 
+> [!WARNING]
+> Each entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+
 > [!TIP]
-> Most themes provide parameters to configure and customize the theme. These can be passed to the workflow using the `config-params` input parameter. See the [Setting a Theme's parameters](#setting-a-themes-parameters) section below.
+> Most themes provide parameters to configure and customize the theme. These can be passed to the workflow using the `config-params` input parameter. See the "Setting a Theme's parameters" section below.
 
 More themes can be found on the [Hugo Themes website](https://themes.gohugo.io/).
 
@@ -182,9 +184,9 @@ For details on how to import other types of modules, or how to specify other opt
 #### Setting a Theme's parameters
 
 > [!IMPORTANT]
-> The `config-params` input parameter has no effect if the `config-file` input parameter is used.
+> The `config-params` input parameter has no effect if the `config-file` input parameter is used, or if the `params` root key is set through the `config-root-keys` input parameter.
 
-Most themes have parameters that can be set to configure the theme.  Such parameters are defined by the theme, and can be found in the theme's documentation.
+Most themes have parameters that can be set to configure the theme. Such parameters are defined by the theme, and can be found in the theme's documentation.
 
 To configure and customize a theme, set the `config-params` input parameter.
 
@@ -204,13 +206,15 @@ jobs:
         }
 ```
 
-For more information about non-theme site parameters, visit [the Hugo "Configure params" documentation](https://gohugo.io/configuration/params/).
+> [!WARNING]
+> The value of the `config-params` input parameter MUST be a valid JSON object. It MUST NOT have a trailing comma.
 
+For more information about non-theme site parameters, visit [the Hugo "Configure params" documentation](https://gohugo.io/configuration/params/).
 
 #### Specify a Hugo config file
 
 > [!IMPORTANT]
-> All input parameter that start with `config-` have no effect if the `config-file` input parameter is used.
+> All other input parameter that start with `config-` have no effect if the `config-file` input parameter is used.
 
 To have more control over the Hugo build, a Hugo configuration file can be created.
 For the workflow to use such a configuration file, it must be passed to the workflow using the `config-file` input parameter:
@@ -231,12 +235,89 @@ To make sure everything works as expected, make sure to add any workflow configu
 # config.yaml
 # ...
 
-# Ignore all files in the `content` folder
+disableHugoGeneratorInject: true
 ignoreFiles:
   - go.*
   - hugo.yml
   - public/*
+languageCode: en-us
+module:
+  imports:
+    - path: github.com/McShelby/hugo-theme-relearn
+params:
+  - collapsibleMenu: true,
+  - themeVariant:
+    - auto
+    - zen-dark
+    - zen-light
+title: My Website
 ```
+
+#### Various Hugo configurations
+
+> [!IMPORTANT]
+> The `config-root-keys` input parameter has no effect if the `config-file` input parameter is used
+
+Input parameters exist for the most common Hugo configurations, but there are many more Hugo configurations that can be set.
+
+To avoid needing an input parameter for every possible Hugo configuration, the `config-root-keys` input parameter is available to set any Hugo configuration available in the root of the Hugo configuration.
+
+Common examples of such configurations are `disableHugoGeneratorInject`, `ignoreFiles`, `languageCode`, and `title`.
+
+For example:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      config-root-keys: |
+        "disableHugoGeneratorInject": true,
+        "languageCode": "en-us",
+        "title": "My Website"
+```
+
+> [!WARNING]
+> Each entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+
+Although input parameters exist for some configurations keys, those can also be set through the `config-root-keys` input parameter.
+
+For example, instead of using `config-ignore-files`, `config-module-imports`, or `config-params`, the same configuration can be achieved by setting the corresponding root keys:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      config-root-keys: |
+        "ignoreFiles": [ "go.*", "hugo.yml", "public/*"],
+        "module": {
+          "imports": [
+            { "path": "github.com/McShelby/hugo-theme-relearn" }
+          ]
+        },
+        "params": {
+          "collapsibleMenu": true,
+          "themeVariant": ["auto", "zen-dark", "zen-light"]
+        }
+```
+
+For a full list of all available Hugo configuration options, see [the complete list of Hugo configuration settings.](https://gohugo.io/configuration/all/)
+
+#### Website title
+
+Usually, at the very least, you'll want to set a title for the website. This can be done using the `config-root-keys` input parameter, with the `title` key:
+
+```yaml
+jobs:
+  build:
+    uses:  potherca/hugo-reusable-workflow/.github/workflows/hugo-reusable-workflow.yaml@main
+    with:
+      config-root-keys: |
+          "title": "My Website"
+```
+
+For more information about Hugo configuration, see the "Various Hugo configurations" section above.
 
 ## Contributing
 
