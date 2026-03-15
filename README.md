@@ -6,13 +6,13 @@ This repo contains a reusable GitHub Workflow for building a Hugo website.
 
 ## Install
 
-No installation is required, the reusable workflows can be called directly from a workflow.
+No installation is required, the [reusable workflow](./.github/workflows/hugo-build.yaml) can [be called directly](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows#calling-a-reusable-workflow) from a project's workflow.
 
 ## Usage
 
-[GitHub Workflow][github-using-workflows] files must live in the `.github/workflows` directory of a project, and must be named `[workflow-name].yml`. For instance, [`.github/workflows/call-hugo-build.yaml`](https://github.com/potherca-blog/hugo-build-example/blob/main/.github/workflows/call-hugo-build.yaml)
+[GitHub Workflow](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflows) files must live in the `.github/workflows` directory of a project, and must be named `[workflow-name].yml`. For instance, [`.github/workflows/call-hugo-build.yaml`](https://github.com/potherca-blog/hugo-build-example/blob/main/.github/workflows/call-hugo-build.yaml)
 
-The reusable workflow can be used by adding a `uses` key to a job in the workflow file:
+The reusable workflow can be used by adding a [`uses` key](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_iduses) to a job in the workflow file:
 
 ```yml
 ---
@@ -58,9 +58,13 @@ To host the result on GitHub Pages, the deploy step would look like this:
 
 ### Configuration
 
+To configure the workflow, "input parameters" can be passed to the workflow using the `with` key.
+
+Other configuration options for the Hugo can be set, or a config file can be specified, if more control is needed.
+
 #### Build directory
 
-If the site should be generated from another location (for instance the `./docs/` directory) the `path` will need to be set:
+If the site should be generated from another location (for instance the `./docs/` directory) the `path` input parameters needs to be set:
 
 ```yml
 jobs:
@@ -85,7 +89,7 @@ jobs:
       docker-image: ghcr.io/hugomods/hugo:dart-sass-node-git
 ```
 
-All hugomod images are available on Docker Hub (docker.io), but they can also be pulled from the GitHub Container Registry (ghcr.io).
+All [HugoMods](https://hugomods.com/) docker images are available on Docker Hub (docker.io), but they can also be pulled from the GitHub Container Registry (ghcr.io).
 
 To select a specific image, visit https://docker.hugomods.com/choose/, or create a custom image with the any needed features.
 
@@ -93,9 +97,9 @@ To select a specific image, visit https://docker.hugomods.com/choose/, or create
 
 After the Hugo site is built, it is uploaded as an artifact named "github-pages". To create the artifact, `tar` is used.
 
-By default, the `.git` and `.github` folders are excluded from the artifact.
+By default, the `.git` and `.github` folders are excluded from this artifact.
 
-If other files or folders also need to be ignored, they can be added using the `exclude` input parameter:
+If other files or folders also need to be excluded, they can be added using the `exclude` input parameter:
 
 ```yaml
 jobs:
@@ -111,12 +115,12 @@ jobs:
 
 <!-- @TODO: Link to docs with more fine-grained details -->
 
-#### ignore files in the build
+#### Ignore files in the build
 
-> [!WARNING]
+> [!IMPORTANT]
 > The `config-ignore-files` input parameter has no effect if the `config-file` input parameter is used.
 
-The `exclude` flag excludes files from the artifact, _after_ the build has completed.
+The `exclude` input parameter excludes files from the artifact created _after_ the build has completed.
 
 To exclude files from the Hugo build, the `config-ignore-files` input parameter can be used.
 
@@ -131,7 +135,8 @@ jobs:
       config-ignore-files: "folder-to-ignore/*", "file-to-ignore.md"
 ```
 
-Note that each entry MUST be wrapped in quotes, and the last entry MUST NOT have a trailing comma.
+> [!WARNING]
+> Note that each entry MUST be wrapped in quotes, and the last entry MUST NOT have a trailing comma.
 
 When there are many entries that need to be ignored, "folded scalar" YAML operator `>` can be used to make it more readable:
 
@@ -151,7 +156,7 @@ jobs:
 
 #### Specify a Hugo config file
 
-> [!WARNING]
+> [!IMPORTANT]
 > All input parameter that start with `config-` have no effect if the `config-file` input parameter is used.
 
 To have more control over the Hugo build, a Hugo configuration file can be created.
