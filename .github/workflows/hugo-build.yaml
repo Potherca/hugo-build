@@ -81,6 +81,9 @@ jobs:
             echo "No config file provided, using generated hugo.json"
             echo "path=hugo.json" >> "$GITHUB_OUTPUT"
           fi
+      - id: pages
+        name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       - name: Build with Hugo
         shell: bash
         run: |
@@ -94,6 +97,7 @@ jobs:
               [ -f go.mod ] || hugo mod init 'github.com/${{ github.repository }}';
               hugo mod get -u \
               && hugo \
+                --baseURL '${{ steps.pages.outputs.base_url }}' \
                 --config '${{ steps.config-file-path.outputs.path }}' \
                 --gc \
                 --minify
