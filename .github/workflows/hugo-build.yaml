@@ -150,7 +150,7 @@ jobs:
       - if: ${{ inputs.build-readme-as-index }}
         name: Use README.md files as folder index
         run: |
-          find "${{ inputs.path }}" -name 'README.md' -type f -execdir mv {} '_index.md' \;
+          find "${{ inputs.path }}" -name 'README.md' -type f -execdir mv -v {} '_index.md' \;
 
       - id: pages
         name: Configure GitHub Pages
