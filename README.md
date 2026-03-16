@@ -62,6 +62,21 @@ To configure the workflow, "input parameters" can be passed to the workflow usin
 
 Other configuration options for the Hugo can be set, or a config file can be specified, if more control is needed.
 
+#### Adding CSS
+
+Custom CSS can be passed directly to the workflow using the `css` input parameter:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      css: |
+        body { background-color: red; }
+```
+
+Setting the `css` input parameter will create a `_/custom.css` CSS file with the provided content, which will be "mounted" to `assets/css/custom.css` in the Hugo build.
+
 #### Build directory
 
 If the site should be generated from another location (for instance the `./docs/` directory) the `path` input parameters needs to be set:

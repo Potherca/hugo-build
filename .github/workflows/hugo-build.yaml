@@ -39,6 +39,11 @@ on:
         description: '(String) Hugo module imports JSON. Objects with a "path" property.'
         required: false
         type: string
+      # inputs.css: ''
+      css:
+        description: '(String) Custom CSS to include in the Hugo build'
+        required: false
+        type: string
       # inputs.docker-image: hugomods/hugo:std-go-git
       # For specific features see https://docker.hugomods.com/choose/
       docker-image:
@@ -68,6 +73,27 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+
+      - id: custom-css
+        name: Add custom CSS
+        run: |
+          sCssFile='_/custom.css'
+
+          mkdir -p "$(dirname "${sCssFile}")"
+
+          cat > "${sCssFile}" << 'END_OF_CSS'
+          ${{ inputs.css }}
+          END_OF_CSS
+
+          sMount=''
+          if [[ $(wc -w < "${sCssFile}") -gt 0 ]]; then
+              printf -v sMount \
+                '{ "source": "%s", "target": "assets/css/custom.css" }' \
+                "${sCssFile}"
+          fi
+
+          echo "css_mount=${sMount}" >> "$GITHUB_OUTPUT"
+
       - if: ${{ inputs.config-file == '' }}
         name: Create Hugo config file
         run: |
@@ -78,6 +104,9 @@ jobs:
               "module": {
                   "imports": [
                       ${{ inputs.config-module-imports }}
+                  ],
+                  "mounts": [
+                      ${{ steps.custom-css.outputs.css_mount }}
                   ]
               },
               "params": ${{ inputs.config-params }}
