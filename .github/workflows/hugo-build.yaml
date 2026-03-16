@@ -83,11 +83,13 @@ jobs:
               "params": ${{ inputs.config-params }}
           }
           JSON
+
       - if: ${{ inputs.config-file == '' }}
         name: Lint Hugo config JSON file
         uses: docker://pipelinecomponents/jsonlint:latest
         with:
           args: jsonlint hugo.json
+
       - id: config-file-path
         name: Set config file path
         run: |
@@ -98,9 +100,11 @@ jobs:
             echo "No config file provided, using generated hugo.json"
             echo "path=hugo.json" >> "$GITHUB_OUTPUT"
           fi
+
       - id: pages
         name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+
       - name: Build with Hugo
         shell: bash
         run: |
