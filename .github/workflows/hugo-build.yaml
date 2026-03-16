@@ -156,6 +156,10 @@ jobs:
         name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Pull Docker image
+        shell: bash
+        run: docker pull "${{ inputs.docker-image }}"
+
       - name: Build with Hugo
         shell: bash
         run: |
