@@ -62,9 +62,17 @@ To configure the workflow, "input parameters" can be passed to the workflow usin
 
 Other configuration options for the Hugo can be set, or a config file can be specified, if more control is needed.
 
-#### Adding CSS
+#### Adding custom CSS to the site
 
-Custom CSS can be passed directly to the workflow using the `css` input parameter:
+> [!IMPORTANT]
+> The `css` input parameter has no effect if the `config-file` input parameter is used.
+>
+> The workflow will still create the `_/custom.css` file, but cannot mount it to the Hugo build.
+>
+> In such cases, `{ "source": "_/custom.css", "target": "assets/css/custom.css" }` MUST be added to the  `module.mounts` settings in the config file.
+
+
+For simple cases, custom CSS can be passed directly to the workflow using the `css` input parameter:
 
 ```yaml
 jobs:
@@ -75,7 +83,53 @@ jobs:
         body { background-color: red; }
 ```
 
-Setting the `css` input parameter will create a `_/custom.css` CSS file with the provided content, which will be "mounted" to `assets/css/custom.css` in the Hugo build.
+The contents of the `css` input parameter will be written to a file `_/custom.css`, which will be "mounted" to path `assets/css/custom.css` in the website.
+
+> [!TIP]
+> For more complex CSS, or when multiple CSS files are needed, files can be added to the website.
+
+For details on file mounts, see the "Adding files to the site" section.
+
+#### Adding files to the site
+
+> [!IMPORTANT]
+> The `config-module-mounts` input parameter has no effect if the `config-file` input parameter is used.
+
+To add files to the Hugo build, the `config-module-mounts` input parameter can be used.
+
+This will add files to the Hugo build by "mounting" them to the expected location in the Hugo build environment.
+
+A "mount" is a configuration object that maps a file system path (or `source`) to a component path (`target`) within Hugo’s file system.
+
+For example, to add a custom CSS file to the Hugo build, the following mount can be added:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      config-module-mounts: |
+        { "source": "_/custom.css", "target": "assets/css/custom.css" }
+```
+
+> [!WARNING]
+> Each `config-module-mounts` entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+
+The above example is exactly what happens when the `css` input parameter is used for adding custom CSS.
+
+If `config-root-keys` is used to set the `module` root key, the same mount can be added like this:
+
+```yaml
+jobs:
+  build:
+    uses: potherca/hugo-build/.github/workflows/hugo-build.yaml@main
+    with:
+      config-root-keys: |
+          "languageCode": "en-us"
+```
+
+
+For more details, see the [Mounts section of the Hugo Modules documentation](https://gohugo.io/configuration/module/#mounts).
 
 #### Build directory
 

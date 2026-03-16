@@ -39,6 +39,12 @@ on:
         description: '(String) Hugo module imports JSON. Objects with a "path" property.'
         required: false
         type: string
+      # inputs.config-module-mounts: ''
+      # For a full list of options see: https://gohugo.io/configuration/module/#mounts
+      config-module-mounts:
+        description: '(String) Hugo module mounts JSON. Objects with a "source" and "target" property.'
+        required: false
+        type: string
       # inputs.css: ''
       css:
         description: '(String) Custom CSS to include in the Hugo build'
@@ -90,6 +96,10 @@ jobs:
               printf -v sMount \
                 '{ "source": "%s", "target": "assets/css/custom.css" }' \
                 "${sCssFile}"
+
+              if [[ "${{ inputs.config-module-mounts }}" != "" ]]; then
+                  sMount="${sMount},"
+              fi
           fi
 
           echo "css_mount=${sMount}" >> "$GITHUB_OUTPUT"
@@ -107,6 +117,7 @@ jobs:
                   ],
                   "mounts": [
                       ${{ steps.custom-css.outputs.css_mount }}
+                      ${{ inputs.config-module-mounts }}
                   ]
               },
               "params": ${{ inputs.config-params }}
