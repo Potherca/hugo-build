@@ -106,7 +106,7 @@ jobs:
           sMount=''
           if [[ $(wc -w < "${sCssFile}") -gt 0 ]]; then
               printf -v sMount \
-                '{ "source": "%s", "target": "assets/css/custom.css" }' \
+                ', { "source": "%s", "target": "assets/css/custom.css" }' \
                 "${sCssFile}"
 
               if [[ "${{ inputs.config-module-mounts }}" != "" ]]; then
@@ -127,7 +127,14 @@ jobs:
                   "imports": [
                       ${{ inputs.config-module-imports }}
                   ],
-                  "mounts": [
+          "mounts": [
+                      { "source": "archetypes", "target": "archetypes" }
+                      , { "source": "assets", "target": "assets" }
+                      , { "source": "${{ inputs.path }}", "target": "content" }
+                      , { "source": "data", "target": "data" }
+                      , { "source": "i18n", "target": "i18n" }
+                      , { "source": "layouts", "target": "layouts" }
+                      , { "source": "static", "target": "static" }
                       ${{ steps.custom-css.outputs.css_mount }}
                       ${{ inputs.config-module-mounts }}
                   ]
