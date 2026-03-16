@@ -4,6 +4,12 @@ name: Build Hugo site
 on:
   workflow_call:
     inputs:
+      # inputs.build-log-level: 'warn'
+      build-log-level:
+        default: 'warn'
+        description: '(String) Log level for the Hugo build ("debug", "info", "warn", or "error")'
+        required: false
+        type: string
       # inputs.build-readme-as-index: true
       build-readme-as-index:
         default: false
@@ -175,7 +181,7 @@ jobs:
               && hugo \
                 --baseURL '${{ steps.pages.outputs.base_url }}' \
                 --config '${{ steps.config-file-path.outputs.path }}' \
-                --gc \
+                --logLevel '${{ inputs.build-log-level }}' \
                 --minify
             "
 
