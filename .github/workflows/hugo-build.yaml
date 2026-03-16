@@ -4,6 +4,12 @@ name: Build Hugo site
 on:
   workflow_call:
     inputs:
+      # inputs.build-readme-as-index: true
+      build-readme-as-index:
+        default: false
+        description: '(Boolean) Whether to use `README.md` files as folder index (instead of `_index.md` files).'
+        required: false
+        type: boolean
       # inputs.config-file: ''
       config-file:
         description: '(String) Path to the Hugo configuration file'
@@ -140,6 +146,11 @@ jobs:
             echo "No config file provided, using generated hugo.json"
             echo "path=hugo.json" >> "$GITHUB_OUTPUT"
           fi
+
+      - if: ${{ inputs.build-readme-as-index }}
+        name: Use README.md files as folder index
+        run: |
+          find "${{ inputs.path }}" -name 'README.md' -type f -execdir mv {} '_index.md' \;
 
       - id: pages
         name: Configure GitHub Pages
