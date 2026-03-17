@@ -82,6 +82,7 @@ on:
         description: '(String) Path to build the Hugo site from'
         required: false
         type: string
+  workflow_dispatch:
 
 jobs:
   build:
