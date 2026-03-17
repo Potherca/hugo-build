@@ -4,7 +4,6 @@ tags:
   - configuration
   - css
   - assets
-weight: 10
 ---
 
 > [!IMPORTANT]

@@ -4,7 +4,6 @@ tags:
   - configuration
   - readme
   - index
-weight: 130
 ---
 
 Hugo [expects index files for directories to be named `_index.md`](https://gohugo.io/content-management/organization/#index-pages-_indexmd).

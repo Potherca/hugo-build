@@ -4,7 +4,6 @@ tags:
   - configuration
   - build
   - docker
-weight: 40
 ---
 
 By default, the workflow uses the `hugomods/hugo:std-go-git` Docker image to build the Hugo site.

@@ -4,7 +4,6 @@ tags:
   - configuration
   - files
   - mounts
-weight: 20
 ---
 
 > [!IMPORTANT]

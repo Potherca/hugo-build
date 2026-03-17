@@ -3,7 +3,6 @@ title: "Specify a Hugo config file"
 tags:
   - configuration
   - config-file
-weight: 120
 ---
 
 > [!IMPORTANT]

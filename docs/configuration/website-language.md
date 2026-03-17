@@ -3,7 +3,6 @@ title: "Website language"
 tags:
   - configuration
   - language
-weight: 150
 ---
 
 To set the website's language, the `languageCode` root key can be set using the `config-root-keys` input parameter:

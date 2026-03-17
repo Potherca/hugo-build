@@ -3,7 +3,6 @@ title: "Website title"
 tags:
   - configuration
   - title
-weight: 160
 ---
 
 Usually, at the very least, you'll want to set a title for the website. This can be done using the `config-root-keys` input parameter, with the `title` key:

@@ -4,7 +4,6 @@ tags:
   - configuration
   - build
   - path
-weight: 30
 ---
 
 If the site should be generated from another location (for instance the `./docs/` directory) the `path` input parameters needs to be set:

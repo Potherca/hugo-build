@@ -4,7 +4,6 @@ tags:
   - configuration
   - build
   - files
-weight: 80
 ---
 
 > [!IMPORTANT]

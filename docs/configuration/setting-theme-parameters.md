@@ -4,7 +4,6 @@ tags:
   - configuration
   - theme
   - params
-weight: 110
 ---
 
 > [!IMPORTANT]

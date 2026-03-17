@@ -3,7 +3,6 @@ title: "Various Hugo configurations"
 tags:
   - configuration
   - hugo-config
-weight: 140
 ---
 
 > [!IMPORTANT]

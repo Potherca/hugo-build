@@ -4,7 +4,6 @@ tags:
   - configuration
   - theme
   - modules
-weight: 100
 ---
 
 > [!IMPORTANT]

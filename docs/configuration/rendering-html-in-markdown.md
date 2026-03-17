@@ -4,7 +4,6 @@ tags:
   - configuration
   - html
   - markdown
-weight: 90
 ---
 
 By default, Hugo does not allow rendering HTML in Markdown files.

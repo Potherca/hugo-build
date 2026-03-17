@@ -4,7 +4,6 @@ tags:
   - configuration
   - files
   - mounts
-weight: 50
 ---
 
 By default, files are mounted to the same path in the Hugo build as they are in the repository.

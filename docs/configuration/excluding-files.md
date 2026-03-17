@@ -4,7 +4,6 @@ tags:
   - configuration
   - artifact
   - files
-weight: 70
 ---
 
 After the Hugo site is built, it is uploaded as an artifact named "github-pages". To create the artifact, `tar` is used.
