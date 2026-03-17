@@ -23,8 +23,7 @@ on:
         type: string
       # inputs.config-params: {}
       config-params:
-        default: |
-          {}
+        default: ''
         description: '(String) Hugo params configuration JSON'
         required: false
         type: string
@@ -127,10 +126,10 @@ jobs:
                   "imports": [
                       ${{ inputs.config-module-imports }}
                   ],
-          "mounts": [
-                      { "source": "archetypes", "target": "archetypes" }
+                  "mounts": [
+                        { "source": "archetypes", "target": "archetypes" }
                       , { "source": "assets", "target": "assets" }
-                      , { "source": "${{ inputs.path }}", "target": "content" }
+                      , { "source": "./", "target": "content" }
                       , { "source": "data", "target": "data" }
                       , { "source": "i18n", "target": "i18n" }
                       , { "source": "layouts", "target": "layouts" }
@@ -139,7 +138,7 @@ jobs:
                       ${{ inputs.config-module-mounts }}
                   ]
               },
-              "params": ${{ inputs.config-params }}
+              "params": { ${{ inputs.config-params }} }
           }
           JSON
 

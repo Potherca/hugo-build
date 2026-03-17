@@ -112,7 +112,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Each `config-module-mounts` entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-module-mounts` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 The above example is exactly what happens when the `css` input parameter is used for adding custom CSS.
 
@@ -126,6 +127,10 @@ jobs:
       config-root-keys: |
           "languageCode": "en-us"
 ```
+
+> [!WARNING]
+> Each `config-root-keys` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 For more details, see the [Mounts section of the Hugo Modules documentation](https://gohugo.io/configuration/module/#mounts).
 
@@ -192,6 +197,10 @@ jobs:
       config-module-mounts: |
         { "source": "introduction.md", "target": "content/_index.md" }
 ```
+
+> [!WARNING]
+> Each `config-module-mounts` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 By mounting the `introduction.md` file to `content/`, it will be available as the HTML homepage of the website.
 
@@ -278,7 +287,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Note that each entry MUST be wrapped in quotes and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-ignore-files` entry MUST be wrapped in quotes and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 When there are many entries that need to be ignored, "folded scalar" YAML operator `>` can be used to make it more readable:
 
@@ -331,7 +341,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Each entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-module-imports` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 > [!TIP]
 > Most themes provide parameters to configure and customize the theme. These can be passed to the workflow using the `config-params` input parameter. See the "Setting a Theme's parameters" section.
@@ -359,14 +370,14 @@ jobs:
       config-module-imports: |
         { "path": "github.com/McShelby/hugo-theme-relearn" }
       config-params: |
-        {
           "collapsibleMenu": true,
           "themeVariant": ["auto", "zen-dark", "zen-light"]
-        }
 ```
 
 > [!WARNING]
-> The value of the `config-params` input parameter MUST be a valid JSON object. It MUST NOT have a trailing comma.
+> Each `config-params` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
+
 
 For more information about non-theme site parameters, visit [the Hugo "Configure params" documentation](https://gohugo.io/configuration/params/).
 
@@ -457,7 +468,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Each entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-root-keys` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 Although input parameters exist for some configurations keys, those can also be set through the `config-root-keys` input parameter.
 
@@ -510,6 +522,10 @@ jobs:
       config-root-keys: |
           "title": "My Website"
 ```
+
+> [!WARNING]
+> Each `config-root-keys` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 For more information about Hugo configuration, see the "Various Hugo configurations" section.
 
