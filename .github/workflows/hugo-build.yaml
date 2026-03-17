@@ -82,7 +82,62 @@ on:
         description: '(String) Path to build the Hugo site from'
         required: false
         type: string
+
   workflow_dispatch:
+    inputs:
+      build-log-level:
+        default: 'warn'
+        description: 'Log level for the Hugo build'
+        type: choice
+        options:
+          - debug
+          - info
+          - warn
+          - error
+      build-readme-as-index:
+        description: '(Boolean) Whether to use `README.md` files as folder index (instead of `_index.md` files).'
+        type: boolean
+      config-file:
+        description: '(String) Path to the Hugo configuration file'
+        type: string
+      config-params:
+        description: 'Hugo params configuration JSON'
+        type: string
+      config-ignore-files:
+        default: >
+          "go.*",
+          "hugo.yml",
+          "public/*"
+        description: 'Comma-separated list of file patterns to ignore in the Hugo build'
+        type: string
+      config-root-keys:
+        default: |
+          "disableHugoGeneratorInject": true,
+          "languageCode": "en-us"
+        description: 'Configuration JSON for in the root of the Hugo config'
+        type: string
+      config-module-imports:
+        description: 'Hugo module imports JSON. Objects with a "path" property.'
+        type: string
+      config-module-mounts:
+        description: 'Hugo module mounts JSON. Objects with a "source" and "target" property.'
+        type: string
+      css:
+        description: 'Custom CSS to include in the Hugo build'
+        type: string
+      docker-image:
+        default: hugomods/hugo:std-go-git
+        description: 'Docker image to use for building the Hugo site'
+        type: string
+      exclude:
+        default: |
+          .git
+          .github
+        description: 'Newline-separated list of file patterns to exclude from the GitHub Pages artifact'
+      path:
+        default: ./
+        description: 'Path to build the Hugo site from'
+        type: string
 
 jobs:
   build:
