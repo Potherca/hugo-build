@@ -117,6 +117,8 @@ on:
         description: 'Configuration JSON for in the root of the Hugo config'
         type: string
       config-module-imports:
+        default: |
+          { "path": "github.com/McShelby/hugo-theme-relearn" }
         description: 'Hugo module imports JSON. Objects with a "path" property.'
         type: string
       config-module-mounts:
