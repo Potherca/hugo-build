@@ -1,9 +1,10 @@
 ---
-title: "Various Hugo configurations"
 tags:
   - configuration
   - hugo-config
 ---
+
+## Various Hugo configurations
 
 > [!IMPORTANT]
 > The `config-root-keys` input parameter has no effect if the `config-file` input parameter is used

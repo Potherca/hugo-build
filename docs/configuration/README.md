@@ -1,8 +1,9 @@
 ---
-title: "Configuration"
 tags:
   - configuration
 ---
+
+## Configuration
 
 To configure the workflow, "input parameters" can be passed to the workflow using the `with` key.
 

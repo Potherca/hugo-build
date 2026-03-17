@@ -1,10 +1,11 @@
 ---
-title: "Using README.md files as folder index"
 tags:
   - configuration
   - readme
   - index
 ---
+
+## Using README.md files as folder index
 
 Hugo [expects index files for directories to be named `_index.md`](https://gohugo.io/content-management/organization/#index-pages-_indexmd).
 The convention in Markdown is to use `README.md` files for this.

@@ -1,10 +1,11 @@
 ---
-title: "Adding files to the site"
 tags:
   - configuration
   - files
   - mounts
 ---
+
+## Adding files to the site
 
 > [!IMPORTANT]
 > The `config-module-mounts` input parameter has no effect if the `config-file` input parameter is used.

@@ -1,10 +1,11 @@
 ---
-title: "Adding custom CSS to the site"
 tags:
   - configuration
   - css
   - assets
 ---
+
+## Adding custom CSS to the site
 
 > [!IMPORTANT]
 > The `css` input parameter has no effect if the `config-file` input parameter is used.

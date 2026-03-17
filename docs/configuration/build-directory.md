@@ -1,10 +1,11 @@
 ---
-title: "Build directory"
 tags:
   - configuration
   - build
   - path
 ---
+
+## Build directory
 
 If the site should be generated from another location (for instance the `./docs/` directory) the `path` input parameters needs to be set:
 

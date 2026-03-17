@@ -1,10 +1,11 @@
 ---
-title: "Setting a Theme"
 tags:
   - configuration
   - theme
   - modules
 ---
+
+## Setting a Theme
 
 > [!IMPORTANT]
 > The `config-module-imports` input parameter has no effect if the `config-file` input parameter is used.

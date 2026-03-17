@@ -1,10 +1,11 @@
 ---
-title: "Changing a file's path in the build"
 tags:
   - configuration
   - files
   - mounts
 ---
+
+## Changing a file's path in the build
 
 By default, files are mounted to the same path in the Hugo build as they are in the repository.
 

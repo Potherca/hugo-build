@@ -1,10 +1,11 @@
 ---
-title: "Build environment"
 tags:
   - configuration
   - build
   - docker
 ---
+
+## Build environment
 
 By default, the workflow uses the `hugomods/hugo:std-go-git` Docker image to build the Hugo site.
 

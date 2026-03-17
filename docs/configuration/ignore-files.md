@@ -1,10 +1,11 @@
 ---
-title: "Ignore files in the build"
 tags:
   - configuration
   - build
   - files
 ---
+
+## Ignore files in the build
 
 > [!IMPORTANT]
 > The `config-ignore-files` input parameter has no effect if the `config-file` input parameter is used.

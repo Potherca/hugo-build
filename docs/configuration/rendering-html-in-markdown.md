@@ -1,10 +1,11 @@
 ---
-title: "Rendering HTML in Markdown"
 tags:
   - configuration
   - html
   - markdown
 ---
+
+## Rendering HTML in Markdown
 
 By default, Hugo does not allow rendering HTML in Markdown files.
 To enable this, the `markup.goldmark.renderer.unsafe` configuration key needs to be set to `true`.

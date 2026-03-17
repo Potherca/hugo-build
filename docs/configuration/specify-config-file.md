@@ -1,9 +1,10 @@
 ---
-title: "Specify a Hugo config file"
 tags:
   - configuration
   - config-file
 ---
+
+## Specify a Hugo config file
 
 > [!IMPORTANT]
 > All other input parameters that start with `config-` have no effect if the `config-file` input parameter is used.

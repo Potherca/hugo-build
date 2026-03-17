@@ -1,10 +1,11 @@
 ---
-title: "Excluding files from the artifact"
 tags:
   - configuration
   - artifact
   - files
 ---
+
+## Excluding files from the artifact
 
 After the Hugo site is built, it is uploaded as an artifact named "github-pages". To create the artifact, `tar` is used.
 

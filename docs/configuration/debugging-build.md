@@ -1,10 +1,11 @@
 ---
-title: "Debugging the build"
 tags:
   - configuration
   - build
   - debug
 ---
+
+## Debugging the build
 
 By default, the Hugo build only shows errors and warnings.
 

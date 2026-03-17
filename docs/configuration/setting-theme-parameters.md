@@ -1,10 +1,11 @@
 ---
-title: "Setting a Theme's parameters"
 tags:
   - configuration
   - theme
   - params
 ---
+
+## Setting a Theme's parameters
 
 > [!IMPORTANT]
 > The `config-params` input parameter has no effect if the `config-file` input parameter is used.
