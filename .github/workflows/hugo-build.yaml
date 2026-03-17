@@ -154,14 +154,14 @@ jobs:
         run: |
           sCssFile='_/custom.css'
 
-          mkdir -p "$(dirname "${sCssFile}")"
+          mkdir -p "${{ inputs.path }}/$(dirname "${sCssFile}")"
 
-          cat > "${sCssFile}" << 'END_OF_CSS'
+          cat > "${{ inputs.path }}/${sCssFile}" << 'END_OF_CSS'
           ${{ inputs.css }}
           END_OF_CSS
 
           sMount=''
-          if [[ $(wc -w < "${sCssFile}") -gt 0 ]]; then
+          if [[ $(wc -w < "${{ inputs.path }}/${sCssFile}") -gt 0 ]]; then
               printf -v sMount \
                 ', { "source": "%s", "target": "assets/css/custom.css" }' \
                 "${sCssFile}"
@@ -176,7 +176,7 @@ jobs:
       - if: ${{ inputs.config-file == '' }}
         name: Create Hugo config file
         run: |
-          cat <<JSON > hugo.json
+          cat <<JSON > '${{ inputs.path }}/hugo.json'
           {
               ${{ inputs.config-root-keys }},
               "ignorefiles": [ ${{ inputs.config-ignore-files }} ],
@@ -204,7 +204,7 @@ jobs:
         name: Lint Hugo config JSON file
         uses: docker://pipelinecomponents/jsonlint:latest
         with:
-          args: jsonlint hugo.json
+          args: jsonlint '${{ inputs.path }}/hugo.json'
 
       - id: config-file-path
         name: Set config file path
@@ -256,7 +256,7 @@ jobs:
           tar \
           --create \
           --dereference \
-          --directory "${{ inputs.path }}/public" \
+          --directory '${{ inputs.path }}/public' \
           --exclude-from=<(echo -e '${{ inputs.exclude }}') \
           --file "${{ runner.temp }}/artifact.tar" \
           --hard-dereference \
