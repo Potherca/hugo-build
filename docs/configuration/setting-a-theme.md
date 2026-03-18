@@ -24,7 +24,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Each entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-module-imports` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 > [!TIP]
 > Most themes provide parameters to configure and customize the theme. These can be passed to the workflow using the `config-params` input parameter. See the [Setting a Theme's parameters](../setting-theme-parameters/) section.

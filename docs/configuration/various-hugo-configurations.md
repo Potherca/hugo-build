@@ -29,7 +29,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Each entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-root-keys` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 Although input parameters exist for some configurations keys, those can also be set through the `config-root-keys` input parameter.
 

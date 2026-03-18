@@ -14,7 +14,7 @@ To add files to the Hugo build, the `config-module-mounts` input parameter can b
 
 This will add files to the Hugo build by "mounting" them to the expected location in the Hugo build environment.
 
-A "mount" is a configuration object that maps a file system path (or `source`) to a component path (`target`) within Hugo's file system.
+A "mount" is a configuration object that maps a file system path (or `source`) to a component path (`target`) within Hugo’s file system.
 
 For example, to add a custom CSS file to the Hugo build, the following mount can be added:
 
@@ -28,7 +28,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Each `config-module-mounts` entry MUST be a valid line of JSON and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-module-mounts` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 The above example is exactly what happens when the `css` input parameter is used for adding custom CSS.
 
@@ -42,5 +43,9 @@ jobs:
       config-root-keys: |
           "languageCode": "en-us"
 ```
+
+> [!WARNING]
+> Each `config-root-keys` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 For more details, see the [Mounts section of the Hugo Modules documentation](https://gohugo.io/configuration/module/#mounts).

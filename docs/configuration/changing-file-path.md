@@ -38,6 +38,10 @@ jobs:
         { "source": "introduction.md", "target": "content/_index.md" }
 ```
 
+> [!WARNING]
+> Each `config-module-mounts` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
+
 By mounting the `introduction.md` file to `content/`, it will be available as the HTML homepage of the website.
 
 Another example, for instance to mount an `./img/` folder to `/img/`, would be:

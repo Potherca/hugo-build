@@ -26,7 +26,8 @@ jobs:
 ```
 
 > [!WARNING]
-> Note that each entry MUST be wrapped in quotes and have a trailing comma. The last entry (or a single entry) MUST NOT have a trailing comma.
+> Each `config-ignore-files` entry MUST be wrapped in quotes and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
 
 When there are many entries that need to be ignored, "folded scalar" YAML operator `>` can be used to make it more readable:
 

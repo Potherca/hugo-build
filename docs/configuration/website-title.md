@@ -17,4 +17,8 @@ jobs:
           "title": "My Website"
 ```
 
+> [!WARNING]
+> Each `config-root-keys` entry MUST be a valid line of JSON and have a trailing comma.
+> The last entry (or a single entry) MUST NOT have a trailing comma.
+
 For more information about Hugo configuration, see the [Various Hugo configurations](../various-hugo-configurations/) section.
